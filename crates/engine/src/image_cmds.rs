@@ -156,7 +156,7 @@ fn parse_resample(s: &str) -> Method {
 }
 
 /// The largest raster Image Size resamples to: the decoders' default allocation budget.
-const MAX_RESAMPLE_BYTES: u64 = if cfg!(target_pointer_width = "64") { 8 << 30 } else { 2 << 30 };
+pub(crate) const MAX_RESAMPLE_BYTES: u64 = if cfg!(target_pointer_width = "64") { 8 << 30 } else { 2 << 30 };
 
 /// Image → Image Size.
 fn image_size(s: &mut Session, p: &Value) -> Result<Value> {
@@ -247,7 +247,7 @@ fn bad(cmd: &str, msg: impl Into<String>) -> EngineError {
 /// Fails, before moving anything, when some pixels would land outside the i32 coordinate
 /// range: the surface copy saturates its target rectangle there, which no longer matches
 /// the pixel data and panics (#959).
-fn translate_doc(doc: &mut Document, cmd: &str, dx: i32, dy: i32) -> Result<()> {
+pub(crate) fn translate_doc(doc: &mut Document, cmd: &str, dx: i32, dy: i32) -> Result<()> {
     if dx == 0 && dy == 0 {
         return Ok(());
     }
@@ -374,7 +374,7 @@ fn canvas_size(s: &mut Session, p: &Value) -> Result<Value> {
 }
 
 /// The largest side an explicit crop may give the canvas (the `file.new` and Canvas Size limit).
-const MAX_CROP_SIDE: i32 = 300_000;
+pub(crate) const MAX_CROP_SIDE: i32 = 300_000;
 
 /// Image → Crop (to the selection bounds).
 fn crop(s: &mut Session, p: &Value) -> Result<Value> {

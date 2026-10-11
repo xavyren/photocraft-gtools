@@ -12,6 +12,11 @@
 # Product and technology names (PhotoCraft, ArtCraft, OpenType, CMYK, Lab ...) stay in Latin
 # letters; the trailing "…" of dialog commands is kept.
 
+# Filter > Decor
+	Decor	Decoración
+	Add Border…	Añadir borde…
+	Expand Canvas	Expandir lienzo
+
 # Guide layout dialog
 	Columns	Columnas
 	Rows	Filas

@@ -19,6 +19,11 @@
 # kept. Full-width punctuation (，。：) inside sentences; half-width parentheses and the " · "
 # separators as in the English.
 
+# Filter > Decor
+	Decor	裝飾
+	Add Border…	新增邊框…
+	Expand Canvas	擴充畫布
+
 # Guide layout dialog
 	Columns	欄
 	Rows	列

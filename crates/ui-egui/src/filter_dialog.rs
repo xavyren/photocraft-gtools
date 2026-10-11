@@ -182,7 +182,7 @@ fn is_pixel_param(key: &str) -> bool {
 /// Correction's perspective `horizontal` / `vertical` (-100..100). Scaled by the proxy factor,
 /// their preview drew a quarter-size tree and a quarter of the perspective (#2063).
 fn is_pixel_param_of(command: &str, key: &str) -> bool {
-    is_pixel_param(key)
+    (is_pixel_param(key) || (command == "filter.decor.addBorder" && key == "width"))
         && !matches!((command, key), ("filter.render.tree" | "filter.render.pictureFrame", "size") | ("filter.lensCorrection", "horizontal" | "vertical"))
 }
 
@@ -355,6 +355,10 @@ pub fn open(app: &mut PhotocraftApp, command: &str) -> Option<u64> {
             Kind::Json => continue,
         };
         fields.insert(p.key, v);
+    }
+    if command == "filter.decor.addBorder" {
+        let foreground = app.session.tools.foreground;
+        fields.insert("color".into(), json!(crate::color_picker_ui::hex([foreground[0], foreground[1], foreground[2]])));
     }
     restore_remembered(app, command, spec.params, &mut fields);
     if command == "image.rotation.arbitrary" {
@@ -665,17 +669,19 @@ pub fn preview_document_with(
             if is_pixel_param_of(command, key)
                 && let Some(x) = v.as_f64()
             {
+                let integer = spec.iter().any(|p| p.key == key.as_str() && matches!(&p.kind, Kind::Int { .. }));
                 // Match the engine's minimum after scaling (e.g. Box Blur 1, Mosaic 2).
                 // Previously its tolerant decoder clamped these; new calls validate first.
                 let minimum = spec.iter().find(|p| p.key == key.as_str()).and_then(|p| match &p.kind {
                     Kind::Range { min, .. } => Some(f64::from(*min)),
                     _ => None,
                 });
-                let floor = minimum.unwrap_or(0.0).max(if key == "cellSize" { 1.0 } else { 0.1 });
+                let floor = minimum.unwrap_or(0.0).max(if integer || key == "cellSize" { 1.0 } else { 0.1 });
                 // Negative lengths (Offset's left/up shift, Displace's inverted scale) keep their
                 // sign: the floor that keeps a radius positive turned them into +0.1 (#2063).
                 let x = x / run_k as f64;
-                *v = json!(if x > 0.0 { x.max(floor) } else { minimum.map_or(x, |m| x.max(m)) });
+                let scaled = if x > 0.0 { x.max(floor) } else { minimum.map_or(x, |m| x.max(m)) };
+                *v = if integer { json!(scaled.round() as i64) } else { json!(scaled) };
             }
         }
     }
@@ -809,12 +815,28 @@ mod tests {
             "filter.render.lightingEffects",
             "filter.render.relight",
             "filter.other.colorToAlpha",
+            "filter.decor.addBorder",
         ] {
             assert!(has_dialog(id), "{id}");
         }
         for id in ["filter.pixelate.facet", "filter.pixelate.fragment", "filter.video.ntscColors"] {
             assert!(!has_dialog(id), "{id}");
         }
+    }
+
+    #[test]
+    fn add_border_dialog_uses_the_current_foreground_and_pixel_defaults() {
+        let mut app = PhotocraftApp::new(photocraft_engine::Session::new(), Default::default());
+        app.session.tools.foreground = [0.25, 0.5, 0.75, 1.0];
+        app.session.execute("file.new", json!({"width": 16, "height": 12})).unwrap();
+
+        assert!(has_dialog("filter.decor.addBorder"));
+        open(&mut app, "filter.decor.addBorder").unwrap();
+        let fields = &app.ui.dialogs.last().unwrap().fields;
+        assert_eq!(fields["color"], json!(crate::color_picker_ui::hex([0.25, 0.5, 0.75])));
+        assert_eq!(fields["width"], json!(32));
+        assert_eq!(fields["expandCanvas"], json!(true));
+        assert!(is_pixel_param_of("filter.decor.addBorder", "width"));
     }
 
     #[test]

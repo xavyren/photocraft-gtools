@@ -18,6 +18,11 @@
 # Conventions: menus are nouns (Plik, Edycja, Obraz ...), commands are infinitives (Otwórz…,
 # Zapisz jako…), sentence case as in the English source. Quotes: „…”.
 
+# Filter > Decor
+	Decor	Dekoracje
+	Add Border…	Dodaj obramowanie…
+	Expand Canvas	Rozszerz płótno
+
 # Guide layout dialog
 	Rows	Wiersze
 	Number	Liczba

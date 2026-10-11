@@ -19,6 +19,11 @@
 # (PhotoCraft, ArtCraft, OpenType, CMYK, Lab ...) stay in Latin letters; the trailing "…" of
 # dialog commands is kept.
 
+# Filter > Decor
+	Decor	Dekorace
+	Add Border…	Přidat rámeček…
+	Expand Canvas	Rozšířit plátno
+
 # Guide layout dialog
 	Columns	Sloupce
 	Rows	Řádky

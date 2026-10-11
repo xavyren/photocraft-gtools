@@ -3,6 +3,11 @@
 # Original translations based on general Greek graphics/computing terminology.
 # Covers every source label the i18n coverage check lists.
 
+# Filter > Decor
+	Decor	Διακόσμηση
+	Add Border…	Προσθήκη περιγράμματος…
+	Expand Canvas	Επέκταση καμβά
+
 # Guide layout dialog
 	Rows	Γραμμές
 	Number	Πλήθος

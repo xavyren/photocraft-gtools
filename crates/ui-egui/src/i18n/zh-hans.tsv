@@ -11,6 +11,11 @@
 # Licensed MIT OR Apache-2.0, as the code.
 # Product and technology names retain their spelling. See docs/localization-zh-hans.md.
 
+# Filter > Decor
+	Decor	装饰
+	Add Border…	添加边框…
+	Expand Canvas	扩展画布
+
 # Guide layout dialog
 	Columns	列
 	Rows	行

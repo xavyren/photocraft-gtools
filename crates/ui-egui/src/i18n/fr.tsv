@@ -19,6 +19,11 @@
 # ArtCraft, OpenType, Lab ...) stay as they are; RGB/CMYK read RVB/CMJN; the trailing "…" of
 # dialog commands is kept.
 
+# Filter > Decor
+	Decor	Décor
+	Add Border…	Ajouter une bordure…
+	Expand Canvas	Agrandir le canevas
+
 # Guide layout dialog
 	Rows	Lignes
 	Number	Nombre

@@ -1,6 +1,6 @@
 # PhotoCraft vs Adobe Photoshop: target-app parity
 
-> **Last reviewed:** 2026-10-10 · **Last updated:** 2026-10-10 · **Change:** major (full re-measure against Photoshop 2026 27.11.0; merged `parity-estimate.md` and the roadmap's honest assessment into this file) · **Target:** Adobe Photoshop 2026
+> **Last reviewed:** 2026-10-10 · **Last updated:** 2026-10-11 · **Change:** minor (Add Border command; current menu inventory) · **Target:** Adobe Photoshop 2026
 
 The authoritative answer to "how close is PhotoCraft to Photoshop, and how much work is left". The
 one-page summary is [`ROADMAP.md`](../ROADMAP.md); the ranked work list is [`gaps.md`](gaps.md);
@@ -49,7 +49,7 @@ architecture and the PSD writer are the serial parts.
   `Locales/` language packs, `Default Keyboard Shortcuts.kys` (67 toolbox tools, 107 menu commands
   with default shortcuts), `Required/` plug-ins (85 filter entries, 12 format plug-ins), presets,
   and strings in the main binary (81 "… Tool" titles; HDR/EDR, Metal, Touch Bar, pen features).
-- PhotoCraft's own Photoshop menu tree (`crates/ui-egui/src/menu_catalog.rs`, 628 items) was
+- PhotoCraft's own Photoshop menu tree (`crates/ui-egui/src/menu_catalog.rs`, 631 items) was
   written from Photoshop's menus; it is the denominator of the menu number. Photoshop's binary
   `Default Menus.mnu` was not parsed, so items added in 27.x that the catalog lacks would not show
   (Generative and cloud items are the likely ones).
@@ -60,7 +60,7 @@ architecture and the PSD writer are the serial parts.
 
 | Component | Weight | Ours / Photoshop | % | Kind |
 |---|---:|---|---:|---|
-| Menu commands | 30% | 628 / 628 catalog items dispatch a live command | 100% | measured (`cargo xtask parity`) |
+| Menu commands | 30% | 631 / 631 catalog items dispatch a live command | 100% | measured (`cargo xtask parity`) |
 | Toolbox tools | 15% | 58 / 68 (Photoshop's 67 `.kys` tools plus Remove, Triangle, Curvature Pen; minus legacy Rounded Rectangle and Targeted Adjustment) | 85% | measured (`Tool` enum in `ui-egui/src/state.rs`, `TOOL_SECTIONS` in `panels.rs`) |
 | Panels | 10% | 30 / 35 Window-menu panels | 86% | measured (`view_cmds.rs`, panel modules) |
 | Filters and adjustments | 10% | every Filter and Image › Adjustments item live; Filter Gallery 47 looks | 100% | measured (menu catalog) |
@@ -537,6 +537,7 @@ See [method and results](octagonal-mask-performance.md).
 
 | Date | Change | Summary |
 |---|---|---|
+| 2026-10-11 | minor | Add Border (`Filter > Decor`); menu parity is 631/631 |
 | 2026-10-10 | minor | Readiness-by-audience table: percent and hours for full, mainstream and essentials; full number confirmed as the additive weighted sum over dimensions (46%, reported ~45%) |
 | 2026-10-10 | minor | Added mainstream-practitioner (~43%) and essentials-user (~61%) numbers with written weights and discounts; full ready-for-real-work rechecked against its written weights (46%, reported ~45%), unchanged |
 | 2026-10-10 | minor | Stage checked against the core-workflow alpha gate in `roadmap.md`: passes |

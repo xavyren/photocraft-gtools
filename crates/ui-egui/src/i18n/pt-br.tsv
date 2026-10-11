@@ -15,6 +15,11 @@
 # entries the same way. Product and technology names (PhotoCraft, ArtCraft, OpenType, CMYK, Lab ...)
 # stay as they are; the trailing "…" of dialog commands is kept.
 
+# Filter > Decor
+	Decor	Decoração
+	Add Border…	Adicionar borda…
+	Expand Canvas	Expandir tela de pintura
+
 # Guide layout dialog
 	Rows	Linhas
 	Number	Número

@@ -12,6 +12,11 @@
 # Product and technology names (PhotoCraft, ArtCraft, OpenType, CMYK, Lab ...) stay in Latin
 # letters; the trailing "…" of dialog commands is kept.
 
+# Filter > Decor
+	Decor	Dekor
+	Add Border…	Tambahkan bingkai…
+	Expand Canvas	Perluas kanvas
+
 # Guide layout dialog
 	Rows	Baris
 	Number	Jumlah

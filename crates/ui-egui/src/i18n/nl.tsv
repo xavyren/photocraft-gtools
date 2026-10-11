@@ -8,6 +8,11 @@
 # stay as they are; the trailing "…" of dialog commands is kept. UI text addresses the user
 # informally ("je") and uses sentence case.
 
+# Filter > Decor
+	Decor	Decor
+	Add Border…	Rand toevoegen…
+	Expand Canvas	Canvas uitbreiden
+
 # Guide layout dialog
 	Rows	Rijen
 	Number	Aantal
